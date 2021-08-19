@@ -6,7 +6,7 @@ class Weather extends Equatable {
   final int minTemperature;
   final int maxTemperature;
   final int humidity;
-  final int windSpeed;
+  final double windSpeed;
   final String country;
   final String city;
   final int sunrise;
@@ -27,5 +27,6 @@ class Weather extends Equatable {
       this.dt = 0});
 
   @override
+  // Use city name & country to compare two Weather object
   List<Object?> get props => [country, city];
 }
