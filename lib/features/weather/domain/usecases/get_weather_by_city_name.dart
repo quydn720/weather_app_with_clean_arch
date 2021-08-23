@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:weather_app_w_clean_architeture/core/error/failure.dart';
-import 'package:weather_app_w_clean_architeture/features/weather/domain/entities/weather.dart';
-import 'package:weather_app_w_clean_architeture/features/weather/domain/repositories/weather_repository.dart';
+import '../../../../core/error/failure.dart';
+import '../entities/weather.dart';
+import '../repositories/weather_repository.dart';
 
 class GetWeatherByCityName {
   final WeatherRepository weatherRepository;

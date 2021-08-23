@@ -1,5 +1,10 @@
-import '../../features/weather/domain/entities/location.dart';
+abstract class LocationInfo {
+  Future<Location> get location;
+}
 
-abstract class LocationHelper {
-  Location getLocation();
+class Location {
+  final double lon;
+  final double lat;
+
+  Location({required this.lon, required this.lat});
 }
