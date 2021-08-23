@@ -2,12 +2,12 @@ import 'package:weather_app_w_clean_architeture/core/error/exceptions.dart';
 
 import '../../../../core/location/location.dart';
 import '../../../../core/network/network.dart';
-import '../../data/datasources/weather_local_data_source.dart';
-import '../../data/datasources/weather_remote_data_source.dart';
-import '../entities/weather.dart';
+import '../datasources/weather_local_data_source.dart';
+import '../datasources/weather_remote_data_source.dart';
+import '../../domain/entities/weather.dart';
 import '../../../../core/error/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'weather_repository.dart';
+import '../../domain/repositories/weather_repository.dart';
 
 class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherLocalDataSource localDataSource;
@@ -42,7 +42,8 @@ class WeatherRepositoryImpl implements WeatherRepository {
   }
 
   @override
-  Future<Either<Failure, Weather>> getWeatherByLocation() async {
+  Future<Either<Failure, Weather>> getWeatherByLocation(
+      Location location) async {
     locationInfo.location;
     final isConnected = await networkInfo.isConnected;
     if (isConnected) {

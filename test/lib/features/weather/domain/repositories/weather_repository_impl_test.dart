@@ -9,7 +9,7 @@ import 'package:weather_app_w_clean_architeture/features/weather/data/datasource
 import 'package:weather_app_w_clean_architeture/features/weather/data/datasources/weather_remote_data_source.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/data/models/weather_model.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/domain/entities/weather.dart';
-import 'package:weather_app_w_clean_architeture/features/weather/domain/repositories/weather_repository_impl.dart';
+import 'package:weather_app_w_clean_architeture/features/weather/data/repositories/weather_repository_impl.dart';
 
 import 'package:mockito/annotations.dart';
 import 'weather_repository_impl_test.mocks.dart';
@@ -181,7 +181,7 @@ void main() {
         when(mockRemote.getWeatherByLocation())
             .thenAnswer((_) async => tWeatherModel);
         // act
-        await repository.getWeatherByLocation();
+        await repository.getWeatherByLocation(tLocation);
         // assert
         verify(mockNetworkInfo.isConnected);
       },
@@ -196,7 +196,7 @@ void main() {
         when(mockRemote.getWeatherByLocation())
             .thenAnswer((_) async => tWeatherModel);
         // act
-        repository.getWeatherByLocation();
+        repository.getWeatherByLocation(tLocation);
         // assert
         verify(mockNetworkInfo.isConnected);
         verify(mockLocationInfo.location);
@@ -211,7 +211,7 @@ void main() {
           when(mockRemote.getWeatherByLocation())
               .thenAnswer((_) async => tWeatherModel);
           // act
-          final result = await repository.getWeatherByLocation();
+          final result = await repository.getWeatherByLocation(tLocation);
           // assert
           verify(mockRemote.getWeatherByLocation());
           expect(result, Right(tWeatherModel));
@@ -226,7 +226,7 @@ void main() {
           when(mockRemote.getWeatherByLocation())
               .thenAnswer((_) async => tWeatherModel);
           // act
-          await repository.getWeatherByLocation();
+          await repository.getWeatherByLocation(tLocation);
           // assert
           verify(mockRemote.getWeatherByLocation());
           verify(mockLocal.cacheWeather(tWeatherModel));
@@ -240,7 +240,7 @@ void main() {
           when(mockLocationInfo.location).thenAnswer((_) async => tLocation);
           when(mockRemote.getWeatherByLocation()).thenThrow(ServerException());
           // act
-          final result = await repository.getWeatherByLocation();
+          final result = await repository.getWeatherByLocation(tLocation);
           // assert
           verifyZeroInteractions(mockLocal);
           expect(result, equals(Left(ServerFailure())));
@@ -257,7 +257,7 @@ void main() {
           when(mockLocal.getLastWeather())
               .thenAnswer((_) async => tWeatherModel);
           // act
-          final result = await repository.getWeatherByLocation();
+          final result = await repository.getWeatherByLocation(tLocation);
           // assert
           verifyZeroInteractions(mockRemote);
           verify(mockLocal.getLastWeather());
@@ -272,7 +272,7 @@ void main() {
           when(mockLocationInfo.location).thenAnswer((_) async => tLocation);
           when(mockLocal.getLastWeather()).thenThrow(CachedException());
           // act
-          final result = await repository.getWeatherByLocation();
+          final result = await repository.getWeatherByLocation(tLocation);
           // assert
           verifyZeroInteractions(mockRemote);
           verify(mockLocal.getLastWeather());
