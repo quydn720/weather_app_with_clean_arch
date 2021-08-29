@@ -2,15 +2,17 @@
 // in weather_app_w_clean_architeture/test/lib/features/weather/domain/repositories/weather_repository_impl_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 
+import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:weather_app_w_clean_architeture/core/error/failure.dart' as _i7;
 import 'package:weather_app_w_clean_architeture/core/location/location_info.dart'
-    as _i3;
+    as _i4;
 import 'package:weather_app_w_clean_architeture/features/weather/data/models/weather_model.dart'
-    as _i2;
+    as _i3;
 
-import 'weather_repository_impl_test.dart' as _i4;
+import 'weather_repository_impl_test.dart' as _i5;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -20,22 +22,24 @@ import 'weather_repository_impl_test.dart' as _i4;
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: unnecessary_parenthesis
 
-class _FakeWeatherModel_0 extends _i1.Fake implements _i2.WeatherModel {}
+class _FakeEither_0<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 
-class _FakeLocation_1 extends _i1.Fake implements _i3.Location {}
+class _FakeWeatherModel_1 extends _i1.Fake implements _i3.WeatherModel {}
+
+class _FakeLocation_2 extends _i1.Fake implements _i4.Location {}
 
 /// A class which mocks [NetworkInfoT].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i4.NetworkInfoT {
+class MockNetworkInfo extends _i1.Mock implements _i5.NetworkInfoT {
   MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<bool> get hasConnection =>
+  _i6.Future<bool> get hasConnection =>
       (super.noSuchMethod(Invocation.getter(#hasConnection),
-          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i6.Future<bool>);
   @override
   String toString() => super.toString();
 }
@@ -43,7 +47,7 @@ class MockNetworkInfo extends _i1.Mock implements _i4.NetworkInfoT {
 /// A class which mocks [RemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRemoteDataSource extends _i1.Mock implements _i4.RemoteDataSource {
+class MockRemoteDataSource extends _i1.Mock implements _i5.RemoteDataSource {
   MockRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -51,23 +55,25 @@ class MockRemoteDataSource extends _i1.Mock implements _i4.RemoteDataSource {
   @override
   String toString() => super.toString();
   @override
-  _i5.Future<_i2.WeatherModel> getWeatherByLocation(_i3.Location? location) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i3.WeatherModel>> getWeatherByLocation(
+          _i4.Location? location) =>
       (super.noSuchMethod(Invocation.method(#getWeatherByLocation, [location]),
-              returnValue:
-                  Future<_i2.WeatherModel>.value(_FakeWeatherModel_0()))
-          as _i5.Future<_i2.WeatherModel>);
+          returnValue: Future<_i2.Either<_i7.Failure, _i3.WeatherModel>>.value(
+              _FakeEither_0<_i7.Failure, _i3.WeatherModel>())) as _i6
+          .Future<_i2.Either<_i7.Failure, _i3.WeatherModel>>);
   @override
-  _i5.Future<_i2.WeatherModel> getWeatherByCityName(String? city) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i3.WeatherModel>> getWeatherByCityName(
+          String? city) =>
       (super.noSuchMethod(Invocation.method(#getWeatherByCityName, [city]),
-              returnValue:
-                  Future<_i2.WeatherModel>.value(_FakeWeatherModel_0()))
-          as _i5.Future<_i2.WeatherModel>);
+          returnValue: Future<_i2.Either<_i7.Failure, _i3.WeatherModel>>.value(
+              _FakeEither_0<_i7.Failure, _i3.WeatherModel>())) as _i6
+          .Future<_i2.Either<_i7.Failure, _i3.WeatherModel>>);
 }
 
 /// A class which mocks [LocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocalDataSource extends _i1.Mock implements _i4.LocalDataSource {
+class MockLocalDataSource extends _i1.Mock implements _i5.LocalDataSource {
   MockLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -75,30 +81,30 @@ class MockLocalDataSource extends _i1.Mock implements _i4.LocalDataSource {
   @override
   String toString() => super.toString();
   @override
-  _i5.Future<_i2.WeatherModel> getLastWeather() => (super.noSuchMethod(
+  _i6.Future<_i3.WeatherModel> getLastWeather() => (super.noSuchMethod(
           Invocation.method(#getLastWeather, []),
-          returnValue: Future<_i2.WeatherModel>.value(_FakeWeatherModel_0()))
-      as _i5.Future<_i2.WeatherModel>);
+          returnValue: Future<_i3.WeatherModel>.value(_FakeWeatherModel_1()))
+      as _i6.Future<_i3.WeatherModel>);
   @override
-  _i5.Future<void> cacheWeather(_i2.WeatherModel? weatherModel) =>
+  _i6.Future<void> cacheWeather(_i3.WeatherModel? weatherModel) =>
       (super.noSuchMethod(Invocation.method(#cacheWeather, [weatherModel]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i6.Future<void>);
 }
 
 /// A class which mocks [LocationInfoT].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocationInfo extends _i1.Mock implements _i4.LocationInfoT {
+class MockLocationInfo extends _i1.Mock implements _i5.LocationInfoT {
   MockLocationInfo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i3.Location> get location =>
+  _i6.Future<_i4.Location> get location =>
       (super.noSuchMethod(Invocation.getter(#location),
-              returnValue: Future<_i3.Location>.value(_FakeLocation_1()))
-          as _i5.Future<_i3.Location>);
+              returnValue: Future<_i4.Location>.value(_FakeLocation_2()))
+          as _i6.Future<_i4.Location>);
   @override
   String toString() => super.toString();
 }

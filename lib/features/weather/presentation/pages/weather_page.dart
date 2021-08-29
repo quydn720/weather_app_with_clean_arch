@@ -28,11 +28,20 @@ class WeatherPage extends StatelessWidget {
                         },
                         child: Text('Load weather'),
                       ),
+                      TextButton(
+                        onPressed: () {
+                          BlocProvider.of<WeatherBloc>(context)
+                              .add(GetWeatherByLocationEvent());
+                        },
+                        child: Text('Load weather by location'),
+                      ),
                     ],
                   ),
                 );
               } else if (state is Loading) {
-                return Center(child: Text('Loading'));
+                return Center(
+                  child: Text('Loading'),
+                );
               } else if (state is Loaded) {
                 WeatherString w = WeatherString.fromModel(state.weather);
                 return Center(

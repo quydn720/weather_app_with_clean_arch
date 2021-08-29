@@ -2,19 +2,17 @@
 // in weather_app_w_clean_architeture/test/lib/features/weather/presentation/bloc/weather_bloc_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i6;
+import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:weather_app_w_clean_architeture/core/error/failure.dart' as _i7;
-import 'package:weather_app_w_clean_architeture/core/location/location_info.dart'
-    as _i4;
+import 'package:weather_app_w_clean_architeture/core/error/failure.dart' as _i6;
 import 'package:weather_app_w_clean_architeture/features/weather/domain/entities/weather.dart'
-    as _i8;
+    as _i7;
 import 'package:weather_app_w_clean_architeture/features/weather/domain/repositories/weather_repository.dart'
     as _i2;
 
-import 'weather_bloc_test.dart' as _i5;
+import 'weather_bloc_test.dart' as _i4;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -29,13 +27,11 @@ class _FakeWeatherRepository_0 extends _i1.Fake
 
 class _FakeEither_1<L, R> extends _i1.Fake implements _i3.Either<L, R> {}
 
-class _FakeLocation_2 extends _i1.Fake implements _i4.Location {}
-
 /// A class which mocks [tGetWeatherByCityName].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MocktGetWeatherByCityName extends _i1.Mock
-    implements _i5.tGetWeatherByCityName {
+    implements _i4.tGetWeatherByCityName {
   MocktGetWeatherByCityName() {
     _i1.throwOnMissingStub(this);
   }
@@ -47,18 +43,18 @@ class MocktGetWeatherByCityName extends _i1.Mock
   @override
   String toString() => super.toString();
   @override
-  _i6.Future<_i3.Either<_i7.Failure, _i8.Weather>> call({String? cityName}) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i7.Weather>> call({String? cityName}) =>
       (super.noSuchMethod(Invocation.method(#call, [], {#cityName: cityName}),
-              returnValue: Future<_i3.Either<_i7.Failure, _i8.Weather>>.value(
-                  _FakeEither_1<_i7.Failure, _i8.Weather>()))
-          as _i6.Future<_i3.Either<_i7.Failure, _i8.Weather>>);
+              returnValue: Future<_i3.Either<_i6.Failure, _i7.Weather>>.value(
+                  _FakeEither_1<_i6.Failure, _i7.Weather>()))
+          as _i5.Future<_i3.Either<_i6.Failure, _i7.Weather>>);
 }
 
 /// A class which mocks [tGetWeatherByLocation].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MocktGetWeatherByLocation extends _i1.Mock
-    implements _i5.tGetWeatherByLocation {
+    implements _i4.tGetWeatherByLocation {
   MocktGetWeatherByLocation() {
     _i1.throwOnMissingStub(this);
   }
@@ -68,22 +64,19 @@ class MocktGetWeatherByLocation extends _i1.Mock
       (super.noSuchMethod(Invocation.getter(#weatherRepository),
           returnValue: _FakeWeatherRepository_0()) as _i2.WeatherRepository);
   @override
-  _i4.Location get location => (super.noSuchMethod(Invocation.getter(#location),
-      returnValue: _FakeLocation_2()) as _i4.Location);
-  @override
   String toString() => super.toString();
   @override
-  _i6.Future<_i3.Either<_i7.Failure, _i8.Weather>> call() =>
+  _i5.Future<_i3.Either<_i6.Failure, _i7.Weather>> call() =>
       (super.noSuchMethod(Invocation.method(#call, []),
-              returnValue: Future<_i3.Either<_i7.Failure, _i8.Weather>>.value(
-                  _FakeEither_1<_i7.Failure, _i8.Weather>()))
-          as _i6.Future<_i3.Either<_i7.Failure, _i8.Weather>>);
+              returnValue: Future<_i3.Either<_i6.Failure, _i7.Weather>>.value(
+                  _FakeEither_1<_i6.Failure, _i7.Weather>()))
+          as _i5.Future<_i3.Either<_i6.Failure, _i7.Weather>>);
 }
 
 /// A class which mocks [tInputValidator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MocktInputValidator extends _i1.Mock implements _i5.tInputValidator {
+class MocktInputValidator extends _i1.Mock implements _i4.tInputValidator {
   MocktInputValidator() {
     _i1.throwOnMissingStub(this);
   }
@@ -91,8 +84,8 @@ class MocktInputValidator extends _i1.Mock implements _i5.tInputValidator {
   @override
   String toString() => super.toString();
   @override
-  _i3.Either<_i7.Failure, String> stringValidate(String? str) =>
+  _i3.Either<_i6.Failure, String> stringValidate(String? str) =>
       (super.noSuchMethod(Invocation.method(#stringValidate, [str]),
-              returnValue: _FakeEither_1<_i7.Failure, String>())
-          as _i3.Either<_i7.Failure, String>);
+              returnValue: _FakeEither_1<_i6.Failure, String>())
+          as _i3.Either<_i6.Failure, String>);
 }

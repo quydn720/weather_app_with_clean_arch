@@ -1,9 +1,8 @@
 part of 'weather_bloc.dart';
 
 abstract class WeatherEvent extends Equatable {
-  WeatherEvent([List props = const <dynamic>[]]);
   @override
-  List<Object?> get props => props;
+  List<Object?> get props => [];
 }
 
 class GetWeatherByLocationEvent extends WeatherEvent {}

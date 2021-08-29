@@ -43,7 +43,7 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   Future<Either<Failure, WeatherModel>> getWeatherByLocation(
       Location location) async {
     final url = Uri.parse(
-        'api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon={location.lon}&appid=59a51238e8de109695c3a476a80429f2');
+        'http://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=59a51238e8de109695c3a476a80429f2');
     final response = await client.get(url);
     final json = jsonDecode(response.body);
     if (json['cod'] == 200)

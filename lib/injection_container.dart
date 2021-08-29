@@ -1,4 +1,3 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -25,15 +24,8 @@ Future<void> init() async {
     ),
   );
   sl.registerLazySingleton(() => GetWeatherByCityName(sl()));
-  //TODO: Refactor the getweatherbylocation
-  sl.registerLazySingleton(
-    () => GetWeatherByLocation(
-        sl(),
-        Location(
-          lat: 0,
-          lon: 0,
-        )),
-  );
+
+  sl.registerLazySingleton(() => GetWeatherByLocation(sl()));
   sl.registerLazySingleton<WeatherRepository>(
     () => WeatherRepositoryImpl(
       localDataSource: sl(),
@@ -56,6 +48,6 @@ Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => InternetConnectionChecker());
-  sl.registerLazySingleton(() => Geolocator());
   sl.registerLazySingleton(() => http.Client());
+  //sl.registerLazySingleton(() => Geolocator());
 }

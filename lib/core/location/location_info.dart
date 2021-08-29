@@ -10,7 +10,6 @@ class LocationInfoImpl implements LocationInfo {
   Future<Location> get location async {
     // bool serviceEnabled;
     // LocationPermission permission;
-
     // // Test if location services are enabled.
     // serviceEnabled = await Geolocator.isLocationServiceEnabled();
     // if (!serviceEnabled) {
@@ -19,7 +18,6 @@ class LocationInfoImpl implements LocationInfo {
     //   // App to enable the location services.
     //   throw LocationPermissionException();
     // }
-
     // permission = await Geolocator.checkPermission();
     // if (permission == LocationPermission.denied) {
     //   permission = await Geolocator.requestPermission();
@@ -32,7 +30,6 @@ class LocationInfoImpl implements LocationInfo {
     //     throw LocationPermissionException();
     //   }
     // }
-
     // if (permission == LocationPermission.deniedForever) {
     //   // Permissions are denied forever, handle appropriately.
     //   throw LocationPermissionException();
@@ -40,8 +37,28 @@ class LocationInfoImpl implements LocationInfo {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    final position = await Geolocator.getCurrentPosition();
-    return position.parseLocation();
+
+    // try {
+    //   final position = await Geolocator.getCurrentPosition();
+    //   return position.parseLocation();
+    // } catch (e) {
+    //   print(e);
+    //   throw Exception();
+    // }
+
+    try {
+      Position position = await this._determinePosition();
+      return Location(lon: position.longitude, lat: position.latitude);
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
+  Future<Position> _determinePosition() {
+    return Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.best,
+    );
   }
 }
 

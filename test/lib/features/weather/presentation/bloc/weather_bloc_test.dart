@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:weather_app_w_clean_architeture/core/validate/validator.dart';
-import 'package:weather_app_w_clean_architeture/features/weather/domain/entities/weather.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/domain/usecases/get_weather_by_city_name.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/domain/usecases/get_weather_by_location.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/presentation/bloc/weather_bloc.dart';
@@ -49,7 +48,6 @@ void main() {
     () {
       final tCityName = 'hcm';
       final tValidatedCityName = tCityName;
-      final tWeather = Weather(city: 'hcm', country: 'vn');
 
       test(
         'should call the input validator to validate the string',
