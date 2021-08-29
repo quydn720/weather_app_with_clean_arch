@@ -5,7 +5,7 @@
 import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:weather_app_w_clean_architeture/core/location/location.dart'
+import 'package:weather_app_w_clean_architeture/core/location/location_info.dart'
     as _i3;
 import 'package:weather_app_w_clean_architeture/features/weather/data/models/weather_model.dart'
     as _i2;
@@ -20,10 +20,8 @@ import 'weather_repository_impl_test.dart' as _i4;
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: unnecessary_parenthesis
 
-// ignore: camel_case_types
 class _FakeWeatherModel_0 extends _i1.Fake implements _i2.WeatherModel {}
 
-// ignore: camel_case_types
 class _FakeLocation_1 extends _i1.Fake implements _i3.Location {}
 
 /// A class which mocks [NetworkInfoT].
@@ -35,8 +33,8 @@ class MockNetworkInfo extends _i1.Mock implements _i4.NetworkInfoT {
   }
 
   @override
-  _i5.Future<bool> get isConnected =>
-      (super.noSuchMethod(Invocation.getter(#isConnected),
+  _i5.Future<bool> get hasConnection =>
+      (super.noSuchMethod(Invocation.getter(#hasConnection),
           returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
   @override
   String toString() => super.toString();
@@ -53,10 +51,11 @@ class MockRemoteDataSource extends _i1.Mock implements _i4.RemoteDataSource {
   @override
   String toString() => super.toString();
   @override
-  _i5.Future<_i2.WeatherModel> getWeatherByLocation() => (super.noSuchMethod(
-          Invocation.method(#getWeatherByLocation, []),
-          returnValue: Future<_i2.WeatherModel>.value(_FakeWeatherModel_0()))
-      as _i5.Future<_i2.WeatherModel>);
+  _i5.Future<_i2.WeatherModel> getWeatherByLocation(_i3.Location? location) =>
+      (super.noSuchMethod(Invocation.method(#getWeatherByLocation, [location]),
+              returnValue:
+                  Future<_i2.WeatherModel>.value(_FakeWeatherModel_0()))
+          as _i5.Future<_i2.WeatherModel>);
   @override
   _i5.Future<_i2.WeatherModel> getWeatherByCityName(String? city) =>
       (super.noSuchMethod(Invocation.method(#getWeatherByCityName, [city]),

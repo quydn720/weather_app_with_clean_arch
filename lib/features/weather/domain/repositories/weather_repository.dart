@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:weather_app_w_clean_architeture/core/location/location.dart';
+import 'package:weather_app_w_clean_architeture/core/location/location_info.dart';
 import '../../../../core/error/failure.dart';
 import '../entities/weather.dart';
 

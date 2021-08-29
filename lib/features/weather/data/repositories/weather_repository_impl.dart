@@ -1,7 +1,7 @@
 import 'package:weather_app_w_clean_architeture/core/error/exceptions.dart';
 
-import '../../../../core/location/location.dart';
-import '../../../../core/network/network.dart';
+import '../../../../core/location/location_info.dart';
+import '../../../../core/network/network_info.dart';
 import '../datasources/weather_local_data_source.dart';
 import '../datasources/weather_remote_data_source.dart';
 import '../../domain/entities/weather.dart';
@@ -24,11 +24,16 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   Future<Either<Failure, Weather>> getWeatherByCityName(String city) async {
-    if (await networkInfo.isConnected) {
+    if (await networkInfo.hasConnection) {
       try {
         final weather = await remoteDataSource.getWeatherByCityName(city);
-        localDataSource.cacheWeather(weather);
-        return Right(weather);
+        return weather.fold(
+          (l) => throw ServerException(),
+          (r) {
+            localDataSource.cacheWeather(r);
+            return Right(r);
+          },
+        );
       } on ServerException {
         return Left(ServerFailure());
       }
@@ -44,13 +49,18 @@ class WeatherRepositoryImpl implements WeatherRepository {
   @override
   Future<Either<Failure, Weather>> getWeatherByLocation(
       Location location) async {
-    locationInfo.location;
-    final isConnected = await networkInfo.isConnected;
+    final location = await locationInfo.location;
+    final isConnected = await networkInfo.hasConnection;
     if (isConnected) {
       try {
-        final weather = await remoteDataSource.getWeatherByLocation();
-        localDataSource.cacheWeather(weather);
-        return Right(weather);
+        final weather = await remoteDataSource.getWeatherByLocation(location);
+        return weather.fold(
+          (l) => throw ServerException(),
+          (r) {
+            localDataSource.cacheWeather(r);
+            return Right(r);
+          },
+        );
       } on ServerException {
         return Left(ServerFailure());
       }

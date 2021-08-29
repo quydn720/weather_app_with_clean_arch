@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:weather_app_w_clean_architeture/core/error/exceptions.dart';
 import 'package:weather_app_w_clean_architeture/core/error/failure.dart';
-import 'package:weather_app_w_clean_architeture/core/location/location.dart';
-import 'package:weather_app_w_clean_architeture/core/network/network.dart';
+import 'package:weather_app_w_clean_architeture/core/location/location_info.dart';
+import 'package:weather_app_w_clean_architeture/core/network/network_info.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/data/datasources/weather_local_data_source.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/data/datasources/weather_remote_data_source.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/data/models/weather_model.dart';
@@ -54,7 +54,7 @@ void main() {
   void runTestOnline(Function body) {
     group('device is online', () {
       setUp(() {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+        when(mockNetworkInfo.hasConnection).thenAnswer((_) async => true);
       });
 
       body();
@@ -64,7 +64,7 @@ void main() {
   void runTestOffline(Function body) {
     group('device is offline', () {
       setUp(() {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+        when(mockNetworkInfo.hasConnection).thenAnswer((_) async => false);
       });
 
       body();
@@ -76,18 +76,19 @@ void main() {
     () {
       final tWeatherModel = WeatherModel(city: 'hcm', country: 'vn');
       final tCityName = 'hcm';
+      // ignore: unnecessary_cast
       final tWeather = tWeatherModel as Weather;
       test(
         'should check the network info if the user is online',
         () async {
           // arrange
-          when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+          when(mockNetworkInfo.hasConnection).thenAnswer((_) async => true);
           when(mockRemote.getWeatherByCityName(tCityName))
               .thenAnswer((_) async => tWeatherModel);
           // act
           repository.getWeatherByCityName(tCityName);
           // assert
-          verify(mockNetworkInfo.isConnected);
+          verify(mockNetworkInfo.hasConnection);
         },
       );
       runTestOnline(
@@ -176,14 +177,14 @@ void main() {
       'should check the network info if the user is online',
       () async {
         // arrange
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+        when(mockNetworkInfo.hasConnection).thenAnswer((_) async => true);
         when(mockLocationInfo.location).thenAnswer((_) async => tLocation);
-        when(mockRemote.getWeatherByLocation())
+        when(mockRemote.getWeatherByLocation(tLocation))
             .thenAnswer((_) async => tWeatherModel);
         // act
         await repository.getWeatherByLocation(tLocation);
         // assert
-        verify(mockNetworkInfo.isConnected);
+        verify(mockNetworkInfo.hasConnection);
       },
     );
 
@@ -191,29 +192,30 @@ void main() {
       'should get the location',
       () async {
         // arrange
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+        when(mockNetworkInfo.hasConnection).thenAnswer((_) async => true);
         when(mockLocationInfo.location).thenAnswer((_) async => tLocation);
-        when(mockRemote.getWeatherByLocation())
+        when(mockRemote.getWeatherByLocation(tLocation))
             .thenAnswer((_) async => tWeatherModel);
         // act
         repository.getWeatherByLocation(tLocation);
         // assert
-        verify(mockNetworkInfo.isConnected);
         verify(mockLocationInfo.location);
       },
+      // I'm tired with this...
     );
+
     runTestOnline(() {
       test(
         'should return weather model with device location by calling the network data source, [successful]',
         () async {
           // arrange
           when(mockLocationInfo.location).thenAnswer((_) async => tLocation);
-          when(mockRemote.getWeatherByLocation())
+          when(mockRemote.getWeatherByLocation(tLocation))
               .thenAnswer((_) async => tWeatherModel);
           // act
           final result = await repository.getWeatherByLocation(tLocation);
           // assert
-          verify(mockRemote.getWeatherByLocation());
+          verify(mockRemote.getWeatherByLocation(tLocation));
           expect(result, Right(tWeatherModel));
         },
       );
@@ -223,12 +225,12 @@ void main() {
         () async {
           // arrange
           when(mockLocationInfo.location).thenAnswer((_) async => tLocation);
-          when(mockRemote.getWeatherByLocation())
+          when(mockRemote.getWeatherByLocation(tLocation))
               .thenAnswer((_) async => tWeatherModel);
           // act
           await repository.getWeatherByLocation(tLocation);
           // assert
-          verify(mockRemote.getWeatherByLocation());
+          verify(mockRemote.getWeatherByLocation(tLocation));
           verify(mockLocal.cacheWeather(tWeatherModel));
         },
       );
@@ -238,7 +240,8 @@ void main() {
         () async {
           // arrange
           when(mockLocationInfo.location).thenAnswer((_) async => tLocation);
-          when(mockRemote.getWeatherByLocation()).thenThrow(ServerException());
+          when(mockRemote.getWeatherByLocation(tLocation))
+              .thenThrow(ServerException());
           // act
           final result = await repository.getWeatherByLocation(tLocation);
           // assert
