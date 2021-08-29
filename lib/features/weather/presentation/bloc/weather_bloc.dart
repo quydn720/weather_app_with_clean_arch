@@ -58,6 +58,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         return SERVER_FAILURE_MESSAGE;
       case CacheFailure:
         return CACHE_FAILURE_MESSAGE;
+      case LocateFailure:
+        return LOCATE_FAILURE_MESSAGE;
       default:
         return 'Unexpected Error';
     }

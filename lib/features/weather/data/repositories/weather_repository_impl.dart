@@ -1,3 +1,4 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:weather_app_w_clean_architeture/core/error/exceptions.dart';
 
 import '../../../../core/location/location_info.dart';
@@ -50,9 +51,9 @@ class WeatherRepositoryImpl implements WeatherRepository {
   Future<Either<Failure, Weather>> getWeatherByLocation() async {
     if (await networkInfo.hasConnection) {
       try {
-        final weather = await remoteDataSource.getWeatherByLocation(
-          await locationInfo.location,
-        );
+        final location = await locationInfo.location;
+
+        final weather = await remoteDataSource.getWeatherByLocation(location);
         return weather.fold(
           (l) => throw ServerException(),
           (r) {
@@ -62,6 +63,8 @@ class WeatherRepositoryImpl implements WeatherRepository {
         );
       } on ServerException {
         return Left(ServerFailure());
+      } on LocationServiceDisabledException {
+        return Left(LocateFailure());
       }
     } else {
       try {

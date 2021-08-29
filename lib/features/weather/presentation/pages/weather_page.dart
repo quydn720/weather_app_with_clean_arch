@@ -44,20 +44,7 @@ class WeatherPage extends StatelessWidget {
                 );
               } else if (state is Loaded) {
                 WeatherString w = WeatherString.fromModel(state.weather);
-                return Center(
-                  child: Column(
-                    children: [
-                      Text(w.country),
-                      TextButton(
-                        onPressed: () {
-                          BlocProvider.of<WeatherBloc>(context)
-                              .add(GetWeatherByCityNameEvent('h minh'));
-                        },
-                        child: Text('Load weather'),
-                      ),
-                    ],
-                  ),
-                );
+                return Center(child: Text(w.city));
               } else {
                 return Container(
                   color: Colors.red,
