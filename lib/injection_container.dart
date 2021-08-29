@@ -16,6 +16,27 @@ import 'package:weather_app_w_clean_architeture/features/weather/presentation/bl
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  initFeatures();
+
+  initCores();
+
+  await init3rdLibraries();
+}
+
+Future<void> init3rdLibraries() async {
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
+  sl.registerLazySingleton(() => InternetConnectionChecker());
+  sl.registerLazySingleton(() => http.Client());
+}
+
+void initCores() {
+  sl.registerFactory<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerFactory<LocationInfo>(() => LocationInfoImpl());
+  sl.registerLazySingleton(() => InputValidator());
+}
+
+void initFeatures() {
   sl.registerFactory(
     () => WeatherBloc(
       getWeatherByCityName: sl(),
@@ -40,14 +61,4 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<WeatherRemoteDataSource>(
       () => WeatherRemoteDataSourceImpl(sl()));
-
-  sl.registerFactory<NetworkInfo>(() => NetworkInfoImpl(sl()));
-  sl.registerFactory<LocationInfo>(() => LocationInfoImpl());
-  sl.registerLazySingleton(() => InputValidator());
-
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
-  sl.registerLazySingleton(() => InternetConnectionChecker());
-  sl.registerLazySingleton(() => http.Client());
-  //sl.registerLazySingleton(() => Geolocator());
 }
