@@ -7,7 +7,7 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:weather_app_w_clean_architeture/core/error/failure.dart' as _i5;
-import 'package:weather_app_w_clean_architeture/core/location/location.dart'
+import 'package:weather_app_w_clean_architeture/core/location/location_info.dart'
     as _i7;
 import 'package:weather_app_w_clean_architeture/features/weather/domain/entities/weather.dart'
     as _i6;
@@ -22,7 +22,6 @@ import 'get_weather_by_location_test.dart' as _i3;
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: unnecessary_parenthesis
 
-// ignore: camel_case_types
 class _FakeEither_0<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 
 /// A class which mocks [WeatherRepositoryT].

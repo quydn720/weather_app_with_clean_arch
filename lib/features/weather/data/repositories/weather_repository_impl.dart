@@ -47,13 +47,12 @@ class WeatherRepositoryImpl implements WeatherRepository {
   }
 
   @override
-  Future<Either<Failure, Weather>> getWeatherByLocation(
-      Location location) async {
-    final location = await locationInfo.location;
-    final isConnected = await networkInfo.hasConnection;
-    if (isConnected) {
+  Future<Either<Failure, Weather>> getWeatherByLocation() async {
+    if (await networkInfo.hasConnection) {
       try {
-        final weather = await remoteDataSource.getWeatherByLocation(location);
+        final weather = await remoteDataSource.getWeatherByLocation(
+          await locationInfo.location,
+        );
         return weather.fold(
           (l) => throw ServerException(),
           (r) {

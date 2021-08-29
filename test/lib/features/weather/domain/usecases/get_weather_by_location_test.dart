@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:weather_app_w_clean_architeture/core/location/location.dart';
+import 'package:weather_app_w_clean_architeture/core/location/location_info.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/domain/entities/weather.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/domain/repositories/weather_repository.dart';
 import 'package:weather_app_w_clean_architeture/features/weather/domain/usecases/get_weather_by_location.dart';
