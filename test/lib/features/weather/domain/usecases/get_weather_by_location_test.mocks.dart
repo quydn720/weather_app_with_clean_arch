@@ -7,8 +7,6 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:weather_app_w_clean_architeture/core/error/failure.dart' as _i5;
-import 'package:weather_app_w_clean_architeture/core/location/location_info.dart'
-    as _i7;
 import 'package:weather_app_w_clean_architeture/features/weather/domain/entities/weather.dart'
     as _i6;
 
@@ -35,9 +33,8 @@ class MockWeatherRepository extends _i1.Mock implements _i3.WeatherRepositoryT {
   @override
   String toString() => super.toString();
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Weather>> getWeatherByLocation(
-          _i7.Location? location) =>
-      (super.noSuchMethod(Invocation.method(#getWeatherByLocation, [location]),
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Weather>> getWeatherByLocation() =>
+      (super.noSuchMethod(Invocation.method(#getWeatherByLocation, []),
               returnValue: Future<_i2.Either<_i5.Failure, _i6.Weather>>.value(
                   _FakeEither_0<_i5.Failure, _i6.Weather>()))
           as _i4.Future<_i2.Either<_i5.Failure, _i6.Weather>>);
